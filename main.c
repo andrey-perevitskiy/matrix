@@ -19,7 +19,7 @@ int main(void)
     .sym = malloc(sizeof(symbol) * SYMBOLS_MAX)
   };
   
-  MatroidGen(&mtr, 5, 10);
+  MatroidGen(&mtr, 5, 15);
   /* END */
   
   MatroidDraw(&mtr);
