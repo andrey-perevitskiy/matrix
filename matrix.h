@@ -11,5 +11,6 @@ typedef struct Matroid
 void MatroidDraw(matroid *mtr);
 void MatroidRand(matroid *mtr);
 void MatroidGen(matroid *mtr, int x, int y);
+void MatroidMove(matroid *mtr, int x, int y);
 
 #endif
