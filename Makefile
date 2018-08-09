@@ -2,19 +2,15 @@ CC=gcc
 LDFLAGS=-lncurses -lrt
 PROGNAME=matrix
 DIRNAME=matrix
+DEPS=defs.h ncurapi.h matrix.h
+OBJ=main.o ncurapi.o matrix.o
 
 .PHONY: all
-matrix: main.o ncurapi.o matrix.o
-	$(CC) $(LDFLAGS) -o $(PROGNAME) main.o ncurapi.o matrix.o
+$(PROGNAME): $(OBJ)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-main.o: main.c ncurapi.h matrix.h
-	$(CC) -c main.c -o main.o
-
-ncurapi.o: ncurapi.c ncurapi.h
-	$(CC) -c ncurapi.c -o ncurapi.o
-
-matrix.o: matrix.c matrix.h
-	$(CC) -c matrix.c -o matrix.o
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $<
 
 .PHONY: clean
 clean:

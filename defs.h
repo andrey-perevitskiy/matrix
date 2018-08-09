@@ -10,6 +10,4 @@
 
 #define SYMBOLS_MAX 5
 
-#define UNKNOWN_DEFINE 10000
-
 #endif
