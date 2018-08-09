@@ -1,4 +1,5 @@
 CC=gcc
+CFLAGS=-Wall -Wextra
 LDFLAGS=-lncurses -lrt
 PROGNAME=matrix
 DIRNAME=matrix
@@ -10,7 +11,7 @@ $(PROGNAME): $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 .PHONY: clean
 clean:

@@ -19,8 +19,6 @@ int main(void)
     .sym = malloc(sizeof(symbol) * SYMBOLS_MAX)
   };
   
-  MatroidGen(&mtr, 5, 10);
-  
   /* BEGIN setting timer */
   union sigval sig =
   {
@@ -36,8 +34,8 @@ int main(void)
   
   struct itimerspec itspec =
   {
-    .it_value.tv_sec = 2,
-    .it_interval.tv_sec = 2
+    .it_interval.tv_sec = 2,
+    .it_value.tv_sec = 2
   };
   /* END */
   
@@ -48,6 +46,7 @@ int main(void)
   timer_create(CLOCK_REALTIME, &sigev, &drawtimer);
   timer_settime(drawtimer, 0, &itspec, NULL);
   
+  MatroidGen(&mtr, 5, 10);
   MatroidDraw(&mtr);
   
   getch();
