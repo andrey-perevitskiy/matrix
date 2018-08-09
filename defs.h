@@ -9,5 +9,6 @@
 #define Random(min, max) (min + rand() % ((max + 1) - min))
 
 #define SYMBOLS_MAX 5
+#define MATROIDS_MAX 10
 
 #endif

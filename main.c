@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <signal.h>
 #include <time.h>
 
@@ -8,59 +9,69 @@
 #include "ncurapi.h"
 #include "matrix.h"
 
-void MatroidMoveTimer(union sigval sig);
+void Timer(union sigval sig);
 
 int main(void)
 {
   srand(time(NULL));
   
-  matroid mtr = 
-  {
-    .sym = malloc(sizeof(symbol) * SYMBOLS_MAX)
-  };
+  matrix mtx;
+  
+  MatrixInit(&mtx);
   
   /* BEGIN setting timer */
-  union sigval sig =
-  {
-    .sival_ptr = &mtr
-  };
-  
   struct sigevent sigev =
   {
     .sigev_notify = SIGEV_THREAD,
-    .sigev_value = sig,
-    .sigev_notify_function = MatroidMoveTimer
+    .sigev_value.sival_ptr = &mtx,
+    .sigev_notify_function = Timer
   };
   
   struct itimerspec itspec =
   {
-    .it_interval.tv_sec = 2,
-    .it_value.tv_sec = 2
+    .it_interval.tv_nsec = 50000000,
+    .it_value.tv_nsec = 50000000
   };
   /* END */
   
-  timer_t drawtimer;
+  timer_t mtxtimer;
   
   initscr();
   
-  timer_create(CLOCK_REALTIME, &sigev, &drawtimer);
-  timer_settime(drawtimer, 0, &itspec, NULL);
+  HideCursor(true);
   
-  MatroidGen(&mtr, 5, 10);
-  MatroidDraw(&mtr);
+  MatrixGen(&mtx);
+  
+  timer_create(CLOCK_REALTIME, &sigev, &mtxtimer);
+  timer_settime(mtxtimer, 0, &itspec, NULL);
   
   getch();
   
+  HideCursor(false);
+  
   endwin();
   
-  timer_delete(drawtimer);
+  timer_delete(mtxtimer);
   
   return 0;
 }
 
-void MatroidMoveTimer(union sigval sig)
+void Timer(union sigval sig)
 {
-  matroid *mtr = sig.sival_ptr;
+  matrix *mtx = sig.sival_ptr;
+
+  MatrixClear(mtx);
   
-  MatroidMove(mtr, ++mtr->sym[0].pos.x, mtr->sym[0].pos.y);
+  int i;
+  for (i = 0; i < MATROIDS_MAX; i++)
+  {
+    int j;
+    for (j = 0; j < SYMBOLS_MAX; j++)
+    {
+      mtx->mtr[i].sym[j].pos.y += 1;
+    }
+  }
+  
+  MatrixCheck(mtx);
+  MatrixDraw(mtx);
 }
