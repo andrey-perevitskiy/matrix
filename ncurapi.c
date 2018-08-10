@@ -31,6 +31,11 @@ void SymbolRand(symbol *sym)
   sym->pos.y = Random(0, WINDOW_SIZE_Y);
 }
 
+void SymbolRandSym(symbol *sym)
+{
+  sym->c = Random('a', 'z');
+}
+
 void SymbolClear(symbol *sym)
 {
   SetSym(' ', sym->pos.x, sym->pos.y);
@@ -38,10 +43,10 @@ void SymbolClear(symbol *sym)
 
 bool SymbolCheck(symbol *sym)
 {
-  if (sym->pos.y == WINDOW_SIZE_Y)
+  if (sym->pos.y == MATRIX_BOARD_BOTTOM)
   {
-    return true;
+    return false;
   }
   
-  return false;
+  return true;
 }

@@ -9,6 +9,11 @@
 #define Random(min, max) (min + rand() % ((max + 1) - min))
 
 #define SYMBOLS_MAX 5
-#define MATROIDS_MAX 10
+#define MATROIDS_MAX 25
+
+#define MATRIX_BOARD_LEFT 0
+#define MATRIX_BOARD_RIGHT (WINDOW_SIZE_X - 2)
+#define MATRIX_BOARD_TOP 0
+#define MATRIX_BOARD_BOTTOM WINDOW_SIZE_Y
 
 #endif

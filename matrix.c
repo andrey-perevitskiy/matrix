@@ -18,6 +18,15 @@ void MatroidRand(matroid *mtr)
   }
 }
 
+void MatroidRandSym(matroid *mtr)
+{
+  int i;
+  for (i = 0; i < SYMBOLS_MAX; i++)
+  {
+    SymbolRandSym(&mtr->sym[i]);
+  }
+}
+
 void MatroidAlign(matroid *mtr, int x, int y)
 {
   int i;
@@ -33,8 +42,8 @@ void MatroidMove(matroid *mtr, int x, int y)
   int i;
   for (i = 0; i < SYMBOLS_MAX; i++)
   {
-    mtr->sym[i].pos.x = x;
-    mtr->sym[i].pos.y = i + y;
+    mtr->sym[i].pos.x += x;
+    mtr->sym[i].pos.y += y;
   }
 }
 
@@ -52,9 +61,9 @@ void MatroidCheck(matroid *mtr)
   int i;
   for (i = 0; i < SYMBOLS_MAX; i++)
   {
-    if (SymbolCheck(&mtr->sym[i]))
+    if (!SymbolCheck(&mtr->sym[i]))
     {
-      mtr->sym[i].pos.y = 0;
+      mtr->sym[i].pos.y = MATRIX_BOARD_TOP;
     }
   }
 }
@@ -79,13 +88,23 @@ void MatrixDraw(matrix *mtx)
   }
 }
 
+void MatrixRandSym(matrix *mtx)
+{
+  int i;
+  for (i = 0; i < MATROIDS_MAX; i++)
+  {
+    MatroidRandSym(&mtx->mtr[i]);
+  }
+}
+
 void MatrixGen(matrix *mtx)
 {
   int i;
   for (i = 0; i < MATROIDS_MAX; i++)
   {
     MatroidRand(&mtx->mtr[i]);
-    MatroidAlign(&mtx->mtr[i], Random(0, WINDOW_SIZE_X), 0 - 1);
+    MatroidAlign(&mtx->mtr[i], Random(MATRIX_BOARD_LEFT, 
+      MATRIX_BOARD_RIGHT), MATRIX_BOARD_TOP - 1);
   }
 }
 
@@ -94,7 +113,7 @@ void MatrixMove(matrix *mtx, int y)
   int i;
   for (i = 0; i < MATROIDS_MAX; i++)
   {
-    MatroidMove(&mtx->mtr[i], mtx->mtr[i].sym[0].pos.x, y);
+    MatroidMove(&mtx->mtr[i], 0, y);
   }
 }
 

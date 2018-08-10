@@ -24,6 +24,7 @@ void SetSym(char c, int x, int y);
 
 void SymbolDraw(symbol *sym);
 void SymbolRand(symbol *sym);
+void SymbolRandSym(symbol *sym);
 void SymbolClear(symbol *sym);
 bool SymbolCheck(symbol *sym);
 

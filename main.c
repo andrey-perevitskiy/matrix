@@ -61,17 +61,8 @@ void Timer(union sigval sig)
   matrix *mtx = sig.sival_ptr;
 
   MatrixClear(mtx);
-  
-  int i;
-  for (i = 0; i < MATROIDS_MAX; i++)
-  {
-    int j;
-    for (j = 0; j < SYMBOLS_MAX; j++)
-    {
-      mtx->mtr[i].sym[j].pos.y += 1;
-    }
-  }
-  
+  MatrixMove(mtx, 1);
   MatrixCheck(mtx);
   MatrixDraw(mtx);
+  MatrixRandSym(mtx);
 }

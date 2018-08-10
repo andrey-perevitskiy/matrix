@@ -22,6 +22,7 @@ void MatroidCheck(matroid *mtr);
 
 void MatrixInit(matrix *mtx);
 void MatrixDraw(matrix *mtx);
+void MatrixRandSym(matrix *mtx);
 void MatrixGen(matrix *mtx);
 void MatrixMove(matrix *mtx, int y);
 void MatrixClear(matrix *mtx);
