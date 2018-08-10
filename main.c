@@ -53,6 +53,8 @@ int main(void)
   
   timer_delete(mtxtimer);
   
+  MatrixFree(&mtx);
+  
   return 0;
 }
 

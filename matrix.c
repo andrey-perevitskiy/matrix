@@ -88,6 +88,15 @@ void MatrixDraw(matrix *mtx)
   }
 }
 
+void MatrixRand(matrix *mtx)
+{
+  int i;
+  for (i = 0; i < MATROIDS_MAX; i++)
+  {
+    MatroidRand(&mtx->mtr[i]);
+  }
+}
+
 void MatrixRandSym(matrix *mtx)
 {
   int i;
@@ -133,4 +142,15 @@ void MatrixCheck(matrix *mtx)
   {
     MatroidCheck(&mtx->mtr[i]);
   }
+}
+
+void MatrixFree(matrix *mtx)
+{
+  int i;
+  for (i = 0; i < MATROIDS_MAX; i++)
+  {
+    free(mtx->mtr[i].sym);
+  }
+  
+  free(mtx->mtr);
 }
