@@ -9,7 +9,7 @@
 #include "ncurapi.h"
 #include "matrix.h"
 
-void Timer(union sigval sig);
+void TimerFunc(union sigval sig);
 
 int main(void)
 {
@@ -19,12 +19,12 @@ int main(void)
   
   MatrixInit(&mtx);
   
-  /* BEGIN setting timer */
+  /* BEGIN setting timer */  
   struct sigevent sigev =
   {
     .sigev_notify = SIGEV_THREAD,
     .sigev_value.sival_ptr = &mtx,
-    .sigev_notify_function = Timer
+    .sigev_notify_function = TimerFunc
   };
   
   struct itimerspec itspec =
@@ -58,7 +58,7 @@ int main(void)
   return 0;
 }
 
-void Timer(union sigval sig)
+void TimerFunc(union sigval sig)
 {
   matrix *mtx = sig.sival_ptr;
 

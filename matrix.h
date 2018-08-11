@@ -15,6 +15,7 @@ typedef struct Matrix
 
 void MatroidDraw(matroid *mtr);
 void MatroidRand(matroid *mtr);
+void MatroidRandSym(matroid *mtr);
 void MatroidAlign(matroid *mtr, int x, int y);
 void MatroidMove(matroid *mtr, int x, int y);
 void MatroidClear(matroid *mtr);
