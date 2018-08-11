@@ -3,6 +3,9 @@
 
 #include "ncurapi.h"
 
+#define MASK_ROOT 1
+#define MASK_GOOD 2
+
 typedef struct Matroid
 {
   symbol *sym;
@@ -30,5 +33,8 @@ void MatrixMove(matrix *mtx, int y);
 void MatrixClear(matrix *mtx);
 void MatrixCheck(matrix *mtx);
 void MatrixFree(matrix *mtx);
+
+void MaskSet(int id);
+void MaskDestroy(int id);
 
 #endif

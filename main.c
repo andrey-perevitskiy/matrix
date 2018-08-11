@@ -19,7 +19,7 @@ int main(void)
   
   MatrixInit(&mtx);
   
-  /* BEGIN setting timer */  
+  /* BEGIN setting timer */
   struct sigevent sigev =
   {
     .sigev_notify = SIGEV_THREAD,
@@ -29,14 +29,35 @@ int main(void)
   
   struct itimerspec itspec =
   {
-    .it_interval.tv_nsec = 50000000,
-    .it_value.tv_nsec = 50000000
+    .it_interval.tv_nsec = MATRIX_SPEED * 10000000,
+    .it_value.tv_nsec = MATRIX_SPEED * 10000000
   };
   /* END */
   
   timer_t mtxtimer;
   
   initscr();
+  
+  if (has_colors() == false)
+  {
+    COLOR_SUPPORT = false;
+    
+    printw("Oops!\n");
+    printw("Your terminal does not support colors.\n");
+    printw("Nothing wrong.\n");
+    printw("Just enjoy one-color animation. :)");
+    
+    getch();
+  }
+  else
+  {
+    COLOR_SUPPORT = true;
+    
+    start_color();
+    
+    init_pair(MASK_ROOT, COLOR_WHITE, COLOR_BLACK);
+    init_pair(MASK_GOOD, COLOR_GREEN, COLOR_BLACK);
+  }
   
   HideCursor(true);
   

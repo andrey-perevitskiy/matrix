@@ -5,7 +5,25 @@ void MatroidDraw(matroid *mtr)
   int i;
   for (i = 0; i < SYMBOLS_MAX; i++)
   {
-    SymbolDraw(&mtr->sym[i]);
+    if (COLOR_SUPPORT)
+    {
+      if (i < (SYMBOLS_MAX - 1))
+      {
+        mtr->sym[i].mask = MASK_GOOD;
+      }
+      else
+      {
+        mtr->sym[i].mask = MASK_ROOT;
+      }
+    
+      MaskSet(mtr->sym[i].mask);
+      SymbolDraw(&mtr->sym[i]);
+      MaskDestroy(mtr->sym[i].mask);
+    }
+    else
+    {
+      SymbolDraw(&mtr->sym[i]);
+    } 
   }
 }
 
@@ -112,8 +130,8 @@ void MatrixGen(matrix *mtx)
   for (i = 0; i < MATROIDS_MAX; i++)
   {
     MatroidRand(&mtx->mtr[i]);
-    MatroidAlign(&mtx->mtr[i], Random(MATRIX_BOARD_LEFT, 
-      MATRIX_BOARD_RIGHT), MATRIX_BOARD_TOP - 1);
+    MatroidAlign(&mtx->mtr[i], i, Random(-1, MATRIX_BOARD_BOTTOM -
+      SYMBOLS_MAX));
   }
 }
 
@@ -153,4 +171,14 @@ void MatrixFree(matrix *mtx)
   }
   
   free(mtx->mtr);
+}
+
+void MaskSet(int id)
+{
+  attron(COLOR_PAIR(id));
+}
+
+void MaskDestroy(int id)
+{
+  attroff(COLOR_PAIR(id));
 }
