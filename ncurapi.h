@@ -25,7 +25,6 @@ bool COLOR_SUPPORT;
 void HideCursor(bool state);
 
 void SetSym(char c, int x, int y);
-void SetMsg(char *msg, int x, int y);
 
 void SymbolDraw(symbol *sym);
 void SymbolRand(symbol *sym);

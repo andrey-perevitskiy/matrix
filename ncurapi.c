@@ -16,14 +16,6 @@ void SetSym(char c, int x, int y)
 {
   move(y, x);
   printw("%c", c);
-  refresh();
-}
-
-void SetMsg(char *msg, int x, int y)
-{
-  move(y, x);
-  printw("%s", msg);
-  refresh();
 }
 
 void SymbolDraw(symbol *sym)

@@ -1,22 +1,24 @@
 CC=gcc
-CFLAGS=-Wall -Wextra
-LDFLAGS=-lncurses -lrt
-PROGNAME=matrix
-DIRNAME=matrix
-DEPS=defs.h ncurapi.h matrix.h
-OBJ=main.o ncurapi.o matrix.o
 
-.PHONY: all
-$(PROGNAME): $(OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^
+CFLAGS=-c -Wall -Wextra
+LDFLAGS=-lncurses -lrt
+
+OBJS=main.o ncurapi.o matrix.o
+DEPS=defs.h ncurapi.h matrix.h
+
+PROG_NAME=matrix
+DIR_NAME=matrix
+
+all: $(OBJS)
+	$(CC) $(LDFLAGS) -o $(PROG_NAME) $^
 
 %.o: %.c $(DEPS)
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: clean
 clean:
-	rm -f *.o $(PROGNAME)
+	rm -f $(PROG_NAME) *.o
 
 .PHONY: tar
 tar:
-	tar -cf $(DIRNAME).tar ../$(DIRNAME)
+	tar -cf $(DIR_NAME).tar ../$(DIR_NAME)

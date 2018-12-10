@@ -9,7 +9,7 @@
 #include "ncurapi.h"
 #include "matrix.h"
 
-void TimerFunc(union sigval sig);
+static void TimerFunc(union sigval sig);
 
 int main(void)
 {
@@ -79,7 +79,7 @@ int main(void)
   return 0;
 }
 
-void TimerFunc(union sigval sig)
+static void TimerFunc(union sigval sig)
 {
   matrix *mtx = sig.sival_ptr;
 
@@ -88,4 +88,6 @@ void TimerFunc(union sigval sig)
   MatrixCheck(mtx);
   MatrixDraw(mtx);
   MatrixRandSym(mtx);
+  
+  refresh();
 }
